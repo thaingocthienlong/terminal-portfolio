@@ -1,0 +1,37 @@
+[
+    {
+        "name": "terminal-portfolio",
+        "description": "A developer portfolio styled like a command-line interface.",
+        "url": "https://github.com/thaingocthienlong/terminal-portfolio"
+    },
+    {
+        "name": "video-streaming-site",
+        "description": "A video streaming website with Mux integration.",
+        "url": "https://github.com/thaingocthienlong/video-streaming-site"
+    },
+    {
+        "name": "academic-website",
+        "description": "A personal academic website built with Next.js and Tailwind CSS, showcasing projects, publications, and contact information.",
+        "url": "https://github.com/thaingocthienlong/academic-website"
+    },
+    {
+        "name": "Online-Movie-Ticket-Booking-System",
+        "description": "A UML-based design project for an online movie ticket booking system, featuring class and activity diagrams created with Astah.",
+        "url": "https://github.com/thaingocthienlong/Online-Movie-Ticket-Booking-System"
+    },
+    {
+        "name": "Coffee",
+        "description": "A React Native mobile application for coffee shop management, integrating Firebase for backend services.",
+        "url": "https://github.com/thaingocthienlong/Coffee"
+    },
+    {
+        "name": "Duolingo_final",
+        "description": "An Android application developed in Java, replicating core functionalities of Duolingo, including user authentication and language exercises.",
+        "url": "https://github.com/thaingocthienlong/Duolingo_final"
+    },
+    {
+        "name": "PiStoreManagement",
+        "description": "A Windows Forms application built with C# for managing store operations, including billing, inventory, and employee management.",
+        "url": "https://github.com/thaingocthienlong/PiStoreManagement"
+    }
+]
