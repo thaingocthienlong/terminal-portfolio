@@ -3,6 +3,7 @@ import { useState, useRef, useEffect } from 'react';
 import React from 'react';
 import { useCommandParser } from '../core/CommandParser';
 import OutputRenderer from './OutputRenderer';
+import projectData from '../data/projects.json';
 import { useTheme } from '../core/ThemeContext';
 
 const COMMANDS = [
@@ -102,6 +103,34 @@ export default function Terminal() {
     } else if (e.key === 'Tab') {
       e.preventDefault();
 
+      const inputParts = input.trim().split(' ');
+      const base = inputParts[0];
+      const partialArg = inputParts.slice(1).join(' ');
+
+      if (base === 'project') {
+        const matches = projectData
+          .map((p) => p.name)
+          .filter((name) => name.toLowerCase().startsWith(partialArg.toLowerCase()));
+
+        if (matches.length === 1) {
+          setInput(`project ${matches[0]}`);
+        } else if (matches.length > 1) {
+          const suggestionOutput = (
+            <div>
+              <p>Matching projects:</p>
+              <ul className="pl-4 list-disc">
+                {matches.map((match) => (
+                  <li key={match}>{match}</li>
+                ))}
+              </ul>
+            </div>
+          );
+          setEntries((prev) => [...prev, { command: input, output: suggestionOutput }]);
+        }
+        return;
+      }
+
+      // Default top-level command auto-completion
       const matches = COMMANDS.filter(cmd => cmd.startsWith(input));
       if (matches.length === 1) {
         setInput(matches[0]);
@@ -116,7 +145,6 @@ export default function Terminal() {
             </ul>
           </div>
         );
-
         setEntries((prev) => [...prev, { command: input, output: suggestionOutput }]);
       }
     }
