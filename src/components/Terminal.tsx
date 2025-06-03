@@ -5,16 +5,38 @@ import { useCommandParser } from '../core/CommandParser';
 import OutputRenderer from './OutputRenderer';
 import { useTheme } from '../core/ThemeContext';
 
-type TerminalEntry = {
-  command: string;
-  output: React.JSX.Element;
-};
-
 const COMMANDS = [
   'about', 'projects', 'project', 'resume', 'contact',
   'clear', 'help', 'theme', 'hello', 'sudo', 'matrix',
   'ls', 'cv', 'mail', 'info'
 ];
+
+const getInitialOutput = (): { command: string; output: React.JSX.Element }[] => [
+  {
+    command: '',
+    output: (
+      <div>
+        <p>👋 Welcome to my terminal portfolio!</p>
+        <p>Here are some commands you can try:</p>
+        <ul className="list-disc pl-4">
+          <li><code>about</code> - Show developer bio</li>
+          <li><code>projects</code> - List all projects</li>
+          <li><code>project &lt;name&gt;</code> - Show project details</li>
+          <li><code>resume</code> - Download/view resume</li>
+          <li><code>contact</code> - Developer's contact info</li>
+          <li><code>theme dark|light</code> - Toggle theme</li>
+          <li><code>help</code> - Show all commands</li>
+          <li><code>clear</code> - Reset the terminal</li>
+        </ul>
+      </div>
+    )
+  }
+];
+
+export type TerminalEntry = {
+  command: string;
+  output: React.JSX.Element;
+};
 
 export default function Terminal() {
   const { theme } = useTheme();
@@ -27,20 +49,32 @@ export default function Terminal() {
 
   const bottomRef = useRef<HTMLDivElement | null>(null);
   useEffect(() => {
+    setEntries(getInitialOutput());
+  }, []);
+
+  useEffect(() => {
     inputRef.current?.focus();
     bottomRef.current?.scrollIntoView({ behavior: 'smooth' });
   }, [entries]);
 
   const inputRef = useRef<HTMLInputElement>(null);
-  const { parseCommand } = useCommandParser();
+  const { parseCommand } = useCommandParser(setEntries);
 
   const handleCommand = (command: string) => {
     if (command.trim() === '') return;
+
+    const normalized = command.trim().toLowerCase();
+    if (normalized === 'clear') {
+      setEntries(getInitialOutput());
+      setInput('');
+      setHistory((prev) => [...prev, command]);
+      setHistoryIndex(null);
+      return;
+    }
     const result = parseCommand(command);
     setEntries((prev) => [...prev, { command, output: result }]);
     setInput('');
     setHistory((prev) => [...prev, command]);
-    //setOutput((prev) => [...prev, result]);
     setHistoryIndex(null);
   };
 
@@ -70,7 +104,7 @@ export default function Terminal() {
 
       const matches = COMMANDS.filter(cmd => cmd.startsWith(input));
       if (matches.length === 1) {
-        setInput(matches[0]); // auto-complete
+        setInput(matches[0]);
       } else if (matches.length > 1) {
         const suggestionOutput = (
           <div>
