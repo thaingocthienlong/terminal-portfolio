@@ -127,7 +127,6 @@ An interactive developer portfolio website that mimics a command-line terminal, 
 - 🧱 Component Diagram
 
 📷 _Example (replace with actual paths):_
-```md
 ![image](https://github.com/user-attachments/assets/3fcd9899-2ac7-4449-9c1d-e42d51d07a92)
 ![image](https://github.com/user-attachments/assets/28745176-0a59-4112-921e-d957b965b46d)
 ![image](https://github.com/user-attachments/assets/e8d25448-d611-4790-ad18-f7be51700013)
