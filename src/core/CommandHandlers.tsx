@@ -89,7 +89,7 @@ export function useCommandHandlers() {
       case 'resume':
         return (
           <OutputText>
-            <a href="/resume.pdf" download className="underline">Click here to download resume</a>
+            <a href="/CV_ThaiNgocThienLong.pdf" download className="underline">Click here to download resume</a>
           </OutputText>
         );
 
